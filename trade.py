@@ -171,10 +171,11 @@ def set_open_trade():
             amount_usd = float(str(V['amount_usd']))
             rate       = float(str(V['rate']))
             V['amount_coins'] = Money(amount_usd/rate)
-            info = T.buy(V['currencyPair'],
-                str(V['rate']),
-                str(V['amount_coins'])
-            )
+            info = {}
+            #info = T.buy(V['currencyPair'],
+            #    str(V['rate']),
+            #    str(V['amount_coins'])
+            #)
 
             if 'error' in info:
                 print("ERROR: {}".format(info['error']))

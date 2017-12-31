@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+
+# SETTINGS
+#  CURRENCY='      usdt str'
+  AMOUNT='        50'
+  RATE='          .5'
+  RISK='          2'
+  PROFIT='        1'
+#  STOPLOSS='      .25'
+#  FILLAT='        .75'
+#  FAKE='          yes'
+
+################################################################################
+TRADE='python2.7 trade.py '
+
+if [[ ! -z $CURRENCY ]]; then
+  TRADE="$TRADE"' --currency '"$CURRENCY"' '
+fi
+
+if [[ ! -z $AMOUNT ]]; then
+  TRADE="$TRADE"' --amount '"$AMOUNT"' '
+fi
+
+if [[ ! -z $BUYRATE ]]; then
+  TRADE="$TRADE"' --buy-rate '"$BUYRATE"' '
+fi
+
+if [[ ! -z $RISK ]]; then
+  TRADE="$TRADE"' --risk '"$RISK"' '
+fi
+
+if [[ ! -z $PROFIT ]]; then
+  TRADE="$TRADE"' --profit '"$PROFIT"' '
+fi
+
+echo $TRADE
+eval $TRADE
+################################################################################
