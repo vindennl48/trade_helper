@@ -28,7 +28,7 @@ def sell_now(PV,V,T):
     return V
 
 def watching_stoploss(PV,V):
-    if get_market_rate(PV,V) >= V['buy_rate']*1.01:
+    if get_market_rate(PV,V) >= V['buy_rate']*1.005:
         return False
     return True
 
