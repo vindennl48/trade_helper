@@ -1,15 +1,18 @@
 #!/usr/bin/env bash
 
 
-# SETTINGS
-  CURRENCY='      usdt str'
-  AMOUNT='        5'
-#  RATE='          .2'
-  RISK='          2'
-  PROFIT='        1'
-#  STOPLOSS='      .25'
-#  FILLAT='        .75'
-#  FAKE='          yes'
+## SETTINGS ##
+CURRENCY='      usdt str'
+AMOUNT='        100'
+
+#RATE='          .442'
+#STOPLOSS='      .45'
+#FILLAT='        .47'
+
+RISK='          2'
+PROFIT='        3'
+
+FAKE='          yes'
 
 ################################################################################
 TRADE='python2.7 trade.py '

@@ -10,8 +10,8 @@ def print_screen(PV,V):
             [ 
                 ['Amount'],
                 ['Buy Price'],
-                ['Target'],
                 ['Stop'],
+                ['Target'],
                 ['Now Price'],
                 ['Profit'],
                 ['HalfP'],
@@ -20,13 +20,35 @@ def print_screen(PV,V):
             [ 
                 [str(V['amount_usd'])   ,'right'],
                 [str(V['buy_rate'])     ,'right'],
-                [str(V['full_rate'])    ,'right'],
                 [str(V['sl_rate'])      ,'right'],
+                [str(V['full_rate'])    ,'right'],
                 [str(get_market_rate(PV,V)) ,'right'],
                 [str(V['now_profit'])   ,'right'],
                 ['No'                   ,'right'],
                 [str(V['position'])     ,'right']
-            ]
+            ],
+            [
+                ['Risk'],
+                #['Flip'],
+                [''],
+                ['Loss'],
+                ['Profit'],
+                [''],
+                [''],
+                [''],
+                ['']
+            ],
+            [ 
+                [str(V['risk'])      ,'right'],
+                #[str(V['buy_rate']*1.01),'right'],
+                [''],
+                [str(V['profit']/-2) ,'right'],
+                [str(V['profit'])    ,'right'],
+                [''],
+                [''],
+                [''],
+                ['']
+            ],
         ]
     )
     print("Update ID: {}".format(PV['update_id']))

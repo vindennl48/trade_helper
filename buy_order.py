@@ -28,12 +28,20 @@ def create_buy_order(V,T):
     return V
 
 def confirm_buy_open_order(PV,V):
+
+    if V['orderNumber'] == 'fake':
+        return True
+
     orders = PV['open_orders'][V['currencyPair']]
     for order in orders:
-        if V['orderNumber'] == order['orderNumber'] or \
-            V['orderNumber'] == 'fake':
-
+        if V['orderNumber'] == order['orderNumber']:
             return True
+
+    trades = PV['trade_history'][V['currencyPair']]
+    for trade in trades:
+        if V['orderNumber'] == trade['orderNumber']:
+            return True
+        
     return False
 
 def confirm_buy_close_order(PV,V):

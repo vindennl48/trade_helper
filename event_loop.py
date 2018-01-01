@@ -67,10 +67,16 @@ def EventLoop(PV,V,T):
             elif status == 5:
                 V = create_sell_order(V,T)
                 status = 6
-                V['position'] = 'watch sell'
 
-            # 6: confirm sell closed order ##################################
+            # 6: set sell order #############################################
             elif status == 6:
+                V['position'] = '.....'
+                V = confirm_open_sell_order(V,T)
+                status = 7
+
+            # 7: confirm sell closed order ##################################
+            elif status == 7:
+                V['position'] = 'watch sell'
                 if confirm_sell_close_order(PV,V):
                     status = 99
                     V['position'] = 'sold'
@@ -89,6 +95,7 @@ def EventLoop(PV,V,T):
             else:
                 raise Exception("Status Level Unknown!")
 
+            V = set_now_profit(PV,V)
             print_screen(PV,V)          # display data on screen
 
         delay(1000)

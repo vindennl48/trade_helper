@@ -35,10 +35,11 @@ def watching_stoploss(PV,V):
 def confirm_sell_close_order(PV,V):
     trades = PV['trade_history'][V['currencyPair']]
     for trade in trades:
-        if V['orderNumber'] == trade['orderNumber'] or \
-            V['orderNumber'] == 'fake':
-
+        if V['orderNumber'] == trade['orderNumber']:
             return True
+        elif V['orderNumber'] == 'fake':
+            if get_market_rate(PV,V) >= V['full_rate']:
+                return True
     return False
 
 def watching_full(PV,V):
@@ -76,3 +77,19 @@ def create_sell_order(V,T):
         V['orderNumber'] = 'fake'
 
     return V
+
+def confirm_open_sell_order(PV,V):
+    if V['orderNumber'] == 'fake':
+        return True
+
+    orders = PV['open_orders'][V['currencyPair']]
+    for order in orders:
+        if V['orderNumber'] == order['orderNumber']:
+            return True
+
+    trades = PV['trade_history'][V['currencyPair']]
+    for trade in trades:
+        if V['orderNumber'] == trade['orderNumber']:
+            return True
+        
+    return False
