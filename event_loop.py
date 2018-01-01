@@ -28,7 +28,7 @@ def EventLoop(PV,V,T):
 
             # 0: initialization ############################################
             if status == 0:
-                V  = get_variables(PV,V)    # terminal arguments and settings
+                V = get_variables(PV,V)    # terminal arguments and settings
                 V['position'] = '....'      # unknown status
                 status = 1                  # proceed to next step
 
@@ -68,11 +68,11 @@ def EventLoop(PV,V,T):
                 V = create_sell_order(V,T)
                 status = 6
 
-            # 6: set sell order #############################################
+            # 6: confirm sell order #########################################
             elif status == 6:
                 V['position'] = '.....'
-                V = confirm_open_sell_order(V,T)
-                status = 7
+                if confirm_open_sell_order(PV,V):
+                    status = 7
 
             # 7: confirm sell closed order ##################################
             elif status == 7:
