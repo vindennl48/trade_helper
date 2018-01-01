@@ -4,8 +4,14 @@ import os
 
 def print_screen(PV,V):
     os.system('clear')
+
+    if V['halfp_active']:
+        halfp = 'Yes'
+    else:
+        halfp = 'No'
+
     st_build(
-        [8,9,8,8,10,8,5,10],
+        [8,9,8,8,10,8,6,10],
         [
             [ 
                 ['Amount'],
@@ -33,9 +39,9 @@ def print_screen(PV,V):
                 [''],
                 ['Loss'],
                 ['Profit'],
-                ['halfp r'],
                 [''],
                 [''],
+                ['Active'],
                 ['']
             ],
             [ 
@@ -44,9 +50,9 @@ def print_screen(PV,V):
                 [''],
                 [str(V['profit']/-2) ,'right'],
                 [str(V['profit'])    ,'right'],
-                [str(V['halfp_rate']) ,'right'],
                 [''],
                 [''],
+                [halfp               ,'right'],
                 ['']
             ],
         ]
