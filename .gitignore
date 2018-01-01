@@ -108,4 +108,4 @@ ENV/
 
 # custom
 GetArgs.py
-
+*.dat
