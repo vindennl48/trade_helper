@@ -1,4 +1,5 @@
 from misc_funcs import *
+import sys
 
 
 
@@ -92,7 +93,10 @@ def create_sell_order(V,T):
         if V['halfp_active']:
             amount = V['amount_coins'] / 2
         else:
+            balance = Money(PV['balance'][V['currency']])
             amount = V['amount_coins']
+            if amount > balance:
+                amount = balance
 
         info = T.sell(
             V['currencyPair'],

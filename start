@@ -5,14 +5,14 @@
 CURRENCY='      usdt str'
 AMOUNT='        100'
 
-#RATE='          .40797'
+#RATE='          .41603'
 #FILLAT='        .41056'
 #STOPLOSS='      .388891'
 
-RISK='          1.5'
-PROFIT='        5'
+RISK='          2'
+PROFIT='        4'
 
-FAKE='          yes'
+#FAKE='          yes'
 #HALFP='         yes'
 
 ################################################################################
