@@ -2,9 +2,9 @@
 
 
 # SETTINGS
-#  CURRENCY='      usdt str'
-  AMOUNT='        50'
-  RATE='          .5'
+  CURRENCY='      usdt str'
+  AMOUNT='        5'
+#  RATE='          .2'
   RISK='          2'
   PROFIT='        1'
 #  STOPLOSS='      .25'
@@ -22,8 +22,8 @@ if [[ ! -z $AMOUNT ]]; then
   TRADE="$TRADE"' --amount '"$AMOUNT"' '
 fi
 
-if [[ ! -z $BUYRATE ]]; then
-  TRADE="$TRADE"' --buy-rate '"$BUYRATE"' '
+if [[ ! -z $RATE ]]; then
+  TRADE="$TRADE"' --buy-rate '"$RATE"' '
 fi
 
 if [[ ! -z $RISK ]]; then
@@ -32,6 +32,18 @@ fi
 
 if [[ ! -z $PROFIT ]]; then
   TRADE="$TRADE"' --profit '"$PROFIT"' '
+fi
+
+if [[ ! -z $STOPLOSS ]]; then
+  TRADE="$TRADE"' --sl-rate '"$STOPLOSS"' '
+fi
+
+if [[ ! -z $FILLAT ]]; then
+  TRADE="$TRADE"' --full-rate '"$FILLAT"' '
+fi
+
+if [[ ! -z $FAKE ]]; then
+  TRADE="$TRADE"' --fake '"$FAKE"' '
 fi
 
 echo $TRADE

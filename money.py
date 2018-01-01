@@ -43,22 +43,22 @@ class Money:
         return Money(a/x,accuracy)
 
     def __gt__(self, x):
-        return self.amount > x.amount
+        return self.float() > float(x)
 
     def __ge__(self, x):
-        return self.amount >= x.amount
+        return self.amount >= float(x)
 
     def __lt__(self, x):
-        return self.amount < x.amount
+        return self.amount < float(x)
 
     def __le__(self, x):
-        return self.amount <= x.amount
+        return self.amount <= float(x)
 
     def __ne__(self, x):
-        return self.amount != x.amount
+        return self.amount != float(x)
 
     def __eq__(self, x):
-        return self.amount == x.amount
+        return self.amount == float(x)
 
     def __float__(self):
         return float(self.amount)/(10**self.accuracy)
