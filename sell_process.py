@@ -28,6 +28,7 @@ def sell_now(PV,V,T):
     return V
 
 def watching_stoploss(PV,V):
+    return False ############# delete me ################ 
     if get_market_rate(PV,V) >= V['buy_rate']*1.005:
         return False
     return True
@@ -42,7 +43,18 @@ def confirm_sell_close_order(PV,V):
                 return True
     return False
 
+def confirm_halfp_close_order(PV,V):
+    trades = PV['trade_history'][V['currencyPair']]
+    for trade in trades:
+        if V['halfp_orderNumber'] == trade['orderNumber']:
+            return True
+        elif V['halfp_orderNumber'] == 'fake':
+            if get_market_rate(PV,V) >= V['halfp_rate']:
+                return True
+    return False
+
 def watching_full(PV,V):
+    return True ############# delete me ################ 
     if get_market_rate(PV,V) <= V['buy_rate']:
         return False
     return True
@@ -58,13 +70,24 @@ def cancel_full_open_order(PV,V,T):
         except:
             print("Error while tryinig to cancel full open order!")
 
+def cancel_halfp_open_order(PV,V,T):
+    info = {}
+    if not 'fake' in V and V['halfp'] == 'No':
+        try:
+            T.cancel(
+                V['currencyPair'],
+                V['halfp_orderNumber']
+            )
+        except:
+            print("Error while tryinig to cancel halfp open order!")
+
 def create_sell_order(V,T):
     info = {}
     if not 'fake' in V:
         info = T.sell(
             V['currencyPair'],
             V['full_rate'],
-            V['amount_coins']
+            V['amount_coins'] / 2
         )
 
     if 'error' in info:
@@ -75,6 +98,27 @@ def create_sell_order(V,T):
         V['orderNumber'] = info['orderNumber']
     except:
         V['orderNumber'] = 'fake'
+
+    return V
+
+def create_half_p(V,T):
+    if V['halfp'] == 'No':
+        info = {}
+        if not 'fake' in V:
+            info = T.sell(
+                V['currencyPair'],
+                V['halfp_rate'],
+                V['amount_coins'] / 2
+            )
+
+        if 'error' in info:
+            print("ERROR: {}".format(info['error']))
+            sys.exit()
+
+        try:
+            V['halfp_orderNumber'] = info['orderNumber']
+        except:
+            V['halfp_orderNumber'] = 'fake'
 
     return V
 
@@ -90,6 +134,22 @@ def confirm_open_sell_order(PV,V):
     trades = PV['trade_history'][V['currencyPair']]
     for trade in trades:
         if V['orderNumber'] == trade['orderNumber']:
+            return True
+        
+    return False
+
+def confirm_open_halfp_order(PV,V):
+    if V['halfp_orderNumber'] == 'fake':
+        return True
+
+    orders = PV['open_orders'][V['currencyPair']]
+    for order in orders:
+        if V['halfp_orderNumber'] == order['orderNumber']:
+            return True
+
+    trades = PV['trade_history'][V['currencyPair']]
+    for trade in trades:
+        if V['halfp_orderNumber'] == trade['orderNumber']:
             return True
         
     return False

@@ -84,5 +84,7 @@ def get_variables(PV,V):
 
     V['now_profit']  = Money(0)
     V['orderNumber'] = ''
+    V['halfp']       = 'No'
+    V['halfp_rate']  = ((V['full_rate'] - V['buy_rate']) / 2) + V['buy_rate']
 
     return V

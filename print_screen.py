@@ -24,7 +24,7 @@ def print_screen(PV,V):
                 [str(V['full_rate'])    ,'right'],
                 [str(get_market_rate(PV,V)) ,'right'],
                 [str(V['now_profit'])   ,'right'],
-                ['No'                   ,'right'],
+                [str(V['halfp'])        ,'right'],
                 [str(V['position'])     ,'right']
             ],
             [
@@ -33,7 +33,7 @@ def print_screen(PV,V):
                 [''],
                 ['Loss'],
                 ['Profit'],
-                [''],
+                ['halfp r'],
                 [''],
                 [''],
                 ['']
@@ -44,7 +44,7 @@ def print_screen(PV,V):
                 [''],
                 [str(V['profit']/-2) ,'right'],
                 [str(V['profit'])    ,'right'],
-                [''],
+                [str(V['halfp_rate']) ,'right'],
                 [''],
                 [''],
                 ['']

@@ -65,23 +65,29 @@ def EventLoop(PV,V,T):
 
             # 5: set sell order #############################################
             elif status == 5:
+                V = create_half_p(V,T)
                 V = create_sell_order(V,T)
                 status = 6
 
             # 6: confirm sell order #########################################
             elif status == 6:
                 V['position'] = '.....'
-                if confirm_open_sell_order(PV,V):
+                if confirm_open_sell_order(PV,V) and \
+                    confirm_open_halfp_order(PV,V):
                     status = 7
 
-            # 7: confirm sell closed order ##################################
+            # 7: full sell watch ############################################
             elif status == 7:
                 V['position'] = 'watch sell'
                 if confirm_sell_close_order(PV,V):
                     status = 99
                     V['position'] = 'sold'
+                elif V['halfp'] == 'No' and \
+                    confirm_halfp_close_order(PV,V):
+                    V['halfp'] = 'Yes'
                 elif not watching_full(PV,V):
                     cancel_full_open_order(PV,V,T)
+                    cancel_halfp_open_order(PV,V,T)
                     status = 4
 
             elif status == 99:
