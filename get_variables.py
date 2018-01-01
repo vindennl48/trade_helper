@@ -16,7 +16,8 @@ def get_variables(PV,V):
         '--profit',   'profit',
         '--sl-rate',  'sl_rate',
         '--full-rate','full_rate',
-        '--fake',     'fake'
+        '--fake',     'fake',
+        '--halfp',    'halfp_active'
     ])
     args = myargs.getargs()
 
@@ -79,12 +80,21 @@ def get_variables(PV,V):
             )*V['buy_rate']
         )
 
+    if '--halfp' in args:
+        V['halfp_active'] = True
+        V['halfp_rate']   = ((V['full_rate'] - V['buy_rate']) / 2) + V['buy_rate']
+    else:
+        V['halfp_active'] = False
+        V['halfp_rate']   = Money(0)
+    V['halfp'] = 'No'
+    V['halfp_orderNumber'] = ''
+
+
     if '--fake' in args:
         V['fake'] = args['fake'].rstrip()
 
     V['now_profit']  = Money(0)
     V['orderNumber'] = ''
-    V['halfp']       = 'No'
-    V['halfp_rate']  = ((V['full_rate'] - V['buy_rate']) / 2) + V['buy_rate']
+    
 
     return V

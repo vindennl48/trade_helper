@@ -15,6 +15,9 @@ def get_pause_menu(V,T,L):
         try:
             T.cancel(V['currencyPair'], V['orderNumber'])
         except: pass
+        try:
+            T.cancel(V['currencyPair'], V['halfp_orderNumber'])
+        except: pass
         sys.exit()
     elif answer == 'n' or answer == 'N':
         del L[:]

@@ -13,6 +13,7 @@ RISK='          1.5'
 PROFIT='        5'
 
 FAKE='          yes'
+#HALFP='         yes'
 
 ################################################################################
 TRADE='python2.7 trade.py '
@@ -47,6 +48,10 @@ fi
 
 if [[ ! -z $FAKE ]]; then
   TRADE="$TRADE"' --fake '"$FAKE"' '
+fi
+
+if [[ ! -z $HALFP ]]; then
+  TRADE="$TRADE"' --halfp '"$HALFP"' '
 fi
 
 echo $TRADE

@@ -51,6 +51,7 @@ def EventLoop(PV,V,T):
                 if confirm_buy_close_order(PV,V):
                     V = get_fee(PV,V)
                     V['position'] = 'bought'
+                    V['start_profit'] = True
                     status = 4
 
 

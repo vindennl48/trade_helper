@@ -10,8 +10,13 @@ def json_pretty(json_obj):
     return json.dumps(json_obj, indent=4, separators=(',', ': '))
 
 def set_now_profit(PV,V):
-    if V['position'] != '....':
-        if V['halfp'] == 'Yes' or True:
+    try:
+        start_profit = V['start_profit']
+    except:
+        start_profit = False
+
+    if V['position'] != '....' and start_profit:
+        if V['halfp'] == 'Yes' and V['halfp_active']:
             ratio = V['halfp_rate'] / V['buy_rate']
             result = (V['amount_usd']/2)* ratio * V['fee_inv'] * V['fee_inv']
             profit = result - (V['amount_usd']/2)

@@ -28,7 +28,6 @@ def sell_now(PV,V,T):
     return V
 
 def watching_stoploss(PV,V):
-    return False ############# delete me ################ 
     if get_market_rate(PV,V) >= V['buy_rate']*1.005:
         return False
     return True
@@ -44,6 +43,9 @@ def confirm_sell_close_order(PV,V):
     return False
 
 def confirm_halfp_close_order(PV,V):
+    if not V['halfp_active']:
+        return False
+
     trades = PV['trade_history'][V['currencyPair']]
     for trade in trades:
         if V['halfp_orderNumber'] == trade['orderNumber']:
@@ -54,7 +56,6 @@ def confirm_halfp_close_order(PV,V):
     return False
 
 def watching_full(PV,V):
-    return True ############# delete me ################ 
     if get_market_rate(PV,V) <= V['buy_rate']:
         return False
     return True
@@ -72,7 +73,10 @@ def cancel_full_open_order(PV,V,T):
 
 def cancel_halfp_open_order(PV,V,T):
     info = {}
-    if not 'fake' in V and V['halfp'] == 'No':
+    if not 'fake' in V and \
+        V['halfp'] == 'No' and \
+        V['halfp_active']:
+
         try:
             T.cancel(
                 V['currencyPair'],
@@ -84,10 +88,16 @@ def cancel_halfp_open_order(PV,V,T):
 def create_sell_order(V,T):
     info = {}
     if not 'fake' in V:
+
+        if V['halfp_active']:
+            amount = V['amount_coins'] / 2
+        else:
+            amount = V['amount_coins']
+
         info = T.sell(
             V['currencyPair'],
             V['full_rate'],
-            V['amount_coins'] / 2
+            amount
         )
 
     if 'error' in info:
@@ -102,7 +112,9 @@ def create_sell_order(V,T):
     return V
 
 def create_half_p(V,T):
-    if V['halfp'] == 'No':
+    if V['halfp'] == 'No' and \
+        V['halfp_active']:
+
         info = {}
         if not 'fake' in V:
             info = T.sell(
@@ -139,6 +151,9 @@ def confirm_open_sell_order(PV,V):
     return False
 
 def confirm_open_halfp_order(PV,V):
+    if not V['halfp_active']:
+        return True
+
     if V['halfp_orderNumber'] == 'fake':
         return True
 
