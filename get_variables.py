@@ -18,6 +18,7 @@ def get_variables(PV,V):
         '--full-rate','full_rate',
         '--fake',     'fake',
         '--halfp',    'halfp_active'
+        '--sl-fast',  'sl_fast',
     ])
     args = myargs.getargs()
 
@@ -88,6 +89,11 @@ def get_variables(PV,V):
         V['halfp_rate']   = Money(0)
     V['halfp'] = 'No'
     V['halfp_orderNumber'] = ''
+
+    if '--sl-fast' in args:
+        V['sl_fast'] = Money(1.005)
+    else:
+        V['sl_fast'] = Money(args['sl_fast'])
 
 
     if '--fake' in args:

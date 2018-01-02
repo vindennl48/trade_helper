@@ -8,6 +8,7 @@ AMOUNT='        150'
 #RATE='          .441'
 #FILLAT='        .41056'
 #STOPLOSS='      .388891'
+#SL_FAST='        1.005'
 
 RISK='          1.5'
 PROFIT='        2'
@@ -52,6 +53,10 @@ fi
 
 if [[ ! -z $HALFP ]]; then
   TRADE="$TRADE"' --halfp '"$HALFP"' '
+fi
+
+if [[ ! -z $SL_FAST ]]; then
+  TRADE="$TRADE"' --sl-fast '"$SL_FAST"' '
 fi
 
 echo $TRADE

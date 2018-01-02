@@ -4,7 +4,7 @@ import sys
 
 
 def hit_stoploss(PV,V):
-    if V['sl_rate']*1.005 >= get_market_rate(PV,V):
+    if V['sl_rate']*V['sl_fast'] >= get_market_rate(PV,V):
         return True
     return False
 
