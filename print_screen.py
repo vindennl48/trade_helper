@@ -48,7 +48,7 @@ def print_screen(PV,V):
                 [str(V['risk'])      ,'right'],
                 #[str(V['buy_rate']*1.01),'right'],
                 [''],
-                [str(V['profit']/-2) ,'right'],
+                [str(V['profit']/V['risk'])*-1 ,'right'],
                 [str(V['profit'])    ,'right'],
                 [''],
                 [''],
