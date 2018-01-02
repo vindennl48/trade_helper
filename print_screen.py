@@ -59,3 +59,4 @@ def print_screen(PV,V):
     )
     print("Update ID: {}".format(PV['update_id']))
     print("Debug | Order Id: {}".format(V['orderNumber']))
+    print("sl_rate * sl_fast: {}".format(V['sl_rate']*V['sl_fast']))

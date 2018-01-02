@@ -2,18 +2,18 @@
 
 
 ## SETTINGS ##
-CURRENCY='      usdt xrp'
+CURRENCY='      usdt str'
 AMOUNT='        150'
 
 #RATE='          .441'
 #FILLAT='        .41056'
 #STOPLOSS='      .388891'
-#SL_FAST='        1.005'
+SL_FAST='        1.001'
 
-RISK='          1.5'
-PROFIT='        2'
+RISK='          2.5'
+PROFIT='        7'
 
-#FAKE='          yes'
+FAKE='          yes'
 #HALFP='         yes'
 
 ################################################################################

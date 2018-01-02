@@ -93,7 +93,7 @@ def get_variables(PV,V):
     if '--sl-fast' in args:
         V['sl_fast'] = Money(args['sl_fast'].rstrip())
     else:
-        V['sl_fast'] = Money(0)
+        V['sl_fast'] = Money(1)
 
 
     if '--fake' in args:
