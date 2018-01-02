@@ -32,15 +32,19 @@ def confirm_buy_open_order(PV,V):
     if V['orderNumber'] == 'fake':
         return True
 
-    orders = PV['open_orders'][V['currencyPair']]
-    for order in orders:
-        if V['orderNumber'] == order['orderNumber']:
-            return True
+    try:
+        orders = PV['open_orders'][V['currencyPair']]
+        for order in orders:
+            if V['orderNumber'] == order['orderNumber']:
+                return True
+    except: pass
 
-    trades = PV['trade_history'][V['currencyPair']]
-    for trade in trades:
-        if V['orderNumber'] == trade['orderNumber']:
-            return True
+    try:
+        trades = PV['trade_history'][V['currencyPair']]
+        for trade in trades:
+            if V['orderNumber'] == trade['orderNumber']:
+                return True
+    except: pass
         
     return False
 

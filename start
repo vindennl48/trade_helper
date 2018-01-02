@@ -2,15 +2,15 @@
 
 
 ## SETTINGS ##
-CURRENCY='      usdt str'
-AMOUNT='        100'
+CURRENCY='      usdt xrp'
+AMOUNT='        150'
 
-#RATE='          .41603'
+#RATE='          .441'
 #FILLAT='        .41056'
 #STOPLOSS='      .388891'
 
-RISK='          2'
-PROFIT='        4'
+RISK='          1.5'
+PROFIT='        2'
 
 #FAKE='          yes'
 #HALFP='         yes'

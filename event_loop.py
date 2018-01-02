@@ -67,7 +67,7 @@ def EventLoop(PV,V,T):
             # 5: set sell order #############################################
             elif status == 5:
                 V = create_half_p(V,T)
-                V = create_sell_order(V,T)
+                V = create_sell_order(PV,V,T)
                 status = 6
 
             # 6: confirm sell order #########################################

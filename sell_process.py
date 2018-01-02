@@ -86,7 +86,7 @@ def cancel_halfp_open_order(PV,V,T):
         except:
             print("Error while tryinig to cancel halfp open order!")
 
-def create_sell_order(V,T):
+def create_sell_order(PV,V,T):
     info = {}
     if not 'fake' in V:
 
