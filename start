@@ -3,17 +3,17 @@
 
 ## SETTINGS ##
 CURRENCY='      usdt str'
-AMOUNT='        150'
+AMOUNT='        50'
 
-#RATE='          .441'
-#FILLAT='        .41056'
-#STOPLOSS='      .388891'
+#RATE='          .7'
+#FILLAT='        .781'
+#STOPLOSS='      .6794'
 SL_FAST='        1.001'
 
-RISK='          2.5'
-PROFIT='        7'
+RISK='          1.5'
+PROFIT='        2'
 
-FAKE='          yes'
+#FAKE='          yes'
 #HALFP='         yes'
 
 ################################################################################

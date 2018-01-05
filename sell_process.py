@@ -34,26 +34,30 @@ def watching_stoploss(PV,V):
     return True
 
 def confirm_sell_close_order(PV,V):
-    trades = PV['trade_history'][V['currencyPair']]
-    for trade in trades:
-        if V['orderNumber'] == trade['orderNumber']:
-            return True
-        elif V['orderNumber'] == 'fake':
-            if get_market_rate(PV,V) >= V['full_rate']:
+    try:
+        trades = PV['trade_history'][V['currencyPair']]
+        for trade in trades:
+            if V['orderNumber'] == trade['orderNumber']:
                 return True
+            elif V['orderNumber'] == 'fake':
+                if get_market_rate(PV,V) >= V['full_rate']:
+                    return True
+    except: pass
     return False
 
 def confirm_halfp_close_order(PV,V):
     if not V['halfp_active']:
         return False
 
-    trades = PV['trade_history'][V['currencyPair']]
-    for trade in trades:
-        if V['halfp_orderNumber'] == trade['orderNumber']:
-            return True
-        elif V['halfp_orderNumber'] == 'fake':
-            if get_market_rate(PV,V) >= V['halfp_rate']:
+    try:
+        trades = PV['trade_history'][V['currencyPair']]
+        for trade in trades:
+            if V['halfp_orderNumber'] == trade['orderNumber']:
                 return True
+            elif V['halfp_orderNumber'] == 'fake':
+                if get_market_rate(PV,V) >= V['halfp_rate']:
+                    return True
+    except: pass
     return False
 
 def watching_full(PV,V):
@@ -142,15 +146,17 @@ def confirm_open_sell_order(PV,V):
     if V['orderNumber'] == 'fake':
         return True
 
-    orders = PV['open_orders'][V['currencyPair']]
-    for order in orders:
-        if V['orderNumber'] == order['orderNumber']:
-            return True
+    try:
+        orders = PV['open_orders'][V['currencyPair']]
+        for order in orders:
+            if V['orderNumber'] == order['orderNumber']:
+                return True
 
-    trades = PV['trade_history'][V['currencyPair']]
-    for trade in trades:
-        if V['orderNumber'] == trade['orderNumber']:
-            return True
+        trades = PV['trade_history'][V['currencyPair']]
+        for trade in trades:
+            if V['orderNumber'] == trade['orderNumber']:
+                return True
+    except: pass
         
     return False
 
@@ -161,14 +167,16 @@ def confirm_open_halfp_order(PV,V):
     if V['halfp_orderNumber'] == 'fake':
         return True
 
-    orders = PV['open_orders'][V['currencyPair']]
-    for order in orders:
-        if V['halfp_orderNumber'] == order['orderNumber']:
-            return True
+    try:
+        orders = PV['open_orders'][V['currencyPair']]
+        for order in orders:
+            if V['halfp_orderNumber'] == order['orderNumber']:
+                return True
 
-    trades = PV['trade_history'][V['currencyPair']]
-    for trade in trades:
-        if V['halfp_orderNumber'] == trade['orderNumber']:
-            return True
+        trades = PV['trade_history'][V['currencyPair']]
+        for trade in trades:
+            if V['halfp_orderNumber'] == trade['orderNumber']:
+                return True
+    except: pass
         
     return False
