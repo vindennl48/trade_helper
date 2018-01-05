@@ -9,6 +9,7 @@ from   sell_process     import *
 from   misc_funcs       import *
 import thread
 
+i = 0
 
 def EventLoop(PV,V,T):
     status = 0
@@ -28,16 +29,19 @@ def EventLoop(PV,V,T):
 
             # 0: initialization ############################################
             if status == 0:
-                V = get_variables(V,T)      # terminal arguments and settings
+                V = get_variables(PV,V)    # terminal arguments and settings
                 V['position'] = '....'      # unknown status
                 status = 1                  # proceed to next step
 
 
             # 1: create buy order ##########################################
             elif status == 1:
-                V = create_order('buy',V,T)   # create open buy order
-                V['position'] = 'open buy'
-                status = 3                    # proceed to next step
+                try:
+                    V = create_order('buy',V,T)   # create open buy order
+                    status = 3                    # proceed to next step
+                except:
+                    print("ERROR: Either an input data error, or a connection error... Trying again..")
+                    sleep(2)
 
             # 3: confirm buy closed order ###################################
             elif status == 3:
@@ -50,45 +54,45 @@ def EventLoop(PV,V,T):
 
             # 4: stoploss watch #############################################
             elif status == 4:
+                status = 99
                 V['position'] = 'watch stop'
-                if hit_stoploss(V):
-                    V = sell_now(V,T)
+                if hit_stoploss(PV,V):
+                    V = sell_now(PV,V,T)
                     status = -99
-                elif not watching_stoploss(V):
+                elif not watching_stoploss(PV,V):
                     status = 5
 
             # 5: set sell order #############################################
             elif status == 5:
-                while True:
-                    try:
-                        V = create_half_p(V,T)
-                        break
-                    except:
-                        print("ERROR: Either an input data error, or a connection error... Trying again..")
-                        sleep(2)
+                try:
+                    V = create_half_p(V,T)
+                except:
+                    print("ERROR: Either an input data error, or a connection error... Trying again..")
+                    sleep(2)
+                    break
+                    
+                #V = create_order('sell',V,T)
+                status = 99 #status = 6
 
-                while True:
-                    try:
-                        V = create_order('sell',V,T)
-                        break
-                    except:
-                            print("ERROR: Either an input data error, or a connection error... Trying again..")
-                            sleep(2)
-
-                V['position'] = 'watch sell'
-                status = 7
+            # 6: confirm sell order #########################################
+            elif status == 6:
+                V['position'] = '.....'
+                if confirm_open_sell_order(PV,V) and \
+                    confirm_open_halfp_order(PV,V):
+                    status = 7
 
             # 7: full sell watch ############################################
             elif status == 7:
-                if confirm_close_order(V,T):
+                V['position'] = 'watch sell'
+                if confirm_sell_close_order(PV,V):
                     status = 99
                     V['position'] = 'sold'
                 elif V['halfp'] == 'No' and \
-                    confirm_halfp_close_order(V,T):
+                    confirm_halfp_close_order(PV,V):
                     V['halfp'] = 'Yes'
-                elif not watching_full(V):
-                    cancel_full_open_order(V,T)
-                    cancel_halfp_open_order(V,T)
+                elif not watching_full(PV,V):
+                    cancel_full_open_order(PV,V,T)
+                    cancel_halfp_open_order(PV,V,T)
                     status = 4
 
             elif status == 99:
@@ -102,10 +106,9 @@ def EventLoop(PV,V,T):
             else:
                 raise Exception("Status Level Unknown!")
 
-            V = set_now_profit(V)
-            print_screen(V)          # display data on screen
+            V = set_now_profit(PV,V)
+            print_screen(PV,V)          # display data on screen
 
-        V['update_id'] += 1
         delay(1000)
 
 

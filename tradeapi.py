@@ -168,3 +168,9 @@ class Poloniex:
     # response      Text containing message about the withdrawal
     def withdraw(self, currency, amount, address):
         return self.api_query('withdraw',{"currency":currency, "amount":amount, "address":address})
+
+
+if __name__ == "__main__":
+    T = Poloniex()
+    info = T.returnTicker()['USDT_STR']['last']
+    print(info)

@@ -1,5 +1,4 @@
 from tradeapi         import *
-from update_variables import *
 from get_variables    import *
 from event_loop       import *
 from misc_funcs       import *
@@ -11,8 +10,8 @@ def run():
     V  = {}            # Trade Variables
 
     # initialize
-    PV = update_variables()
-    V  = get_variables(PV,V)
+    #V = update_ticker(V,T)
+    V  = get_variables(V,T)
 
     # run main loop
     EventLoop(PV,V,T)

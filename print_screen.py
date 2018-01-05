@@ -2,7 +2,7 @@ from screen_table import st_build
 from misc_funcs import *
 import os
 
-def print_screen(PV,V):
+def print_screen(V):
     os.system('clear')
 
     if V['halfp_active']:
@@ -28,7 +28,7 @@ def print_screen(PV,V):
                 [str(V['buy_rate'])     ,'right'],
                 [str(V['sl_rate'])      ,'right'],
                 [str(V['full_rate'])    ,'right'],
-                [str(get_market_rate(PV,V)) ,'right'],
+                [str(V['ticker']) ,'right'],
                 [str(V['now_profit'])   ,'right'],
                 [str(V['halfp'])        ,'right'],
                 [str(V['position'])     ,'right']
@@ -48,7 +48,7 @@ def print_screen(PV,V):
                 [str(V['risk'])      ,'right'],
                 #[str(V['buy_rate']*1.01),'right'],
                 [''],
-                [str(V['profit']/V['risk'])*-1 ,'right'],
+                [str(V['profit']/V['risk']*-1) ,'right'],
                 [str(V['profit'])    ,'right'],
                 [''],
                 [''],
@@ -57,5 +57,5 @@ def print_screen(PV,V):
             ],
         ]
     )
-    print("Update ID: {}".format(PV['update_id']))
+    print("Update ID: {}".format(V['update_id']))
     print("Debug | Order Id: {}".format(V['orderNumber']))

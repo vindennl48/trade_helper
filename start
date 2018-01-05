@@ -5,13 +5,13 @@
 CURRENCY='      usdt str'
 AMOUNT='        50'
 
-#RATE='          .7'
+RATE='          .21'
 #FILLAT='        .781'
 #STOPLOSS='      .6794'
-SL_FAST='        1.001'
+#SL_FAST='        1.001'
 
-RISK='          1.5'
-PROFIT='        2'
+RISK='          1.9'
+PROFIT='        2.5'
 
 #FAKE='          yes'
 #HALFP='         yes'

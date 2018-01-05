@@ -2,7 +2,7 @@ from GetArgs    import *
 from money      import *
 from misc_funcs import *
 
-def get_variables(PV,V):
+def get_variables(V,T):
     myargs = getargs([
         '-c',         'base',     'currency',
         '--currency', 'base',     'currency',
@@ -32,7 +32,9 @@ def get_variables(PV,V):
     else:
         raise Exception("You Need Currency Pair Set!")
 
-    V['balance'] = Money(PV['balance'][V['base_currency']])
+    V['balance'] = Money(T.returnBalances()[V['base_currency']])
+    V['ticker'] = Money(T.returnTicker()[V['currencyPair']]['last'])
+
 
     if '-a' in args or '--amount' in args:
         V['amount_usd'] = Money(args['amount'].rstrip())
@@ -42,7 +44,7 @@ def get_variables(PV,V):
     if '-r' in args or '--buy-rate' in args:
         V['rate'] = Money(args['buy_rate'].rstrip())
     else:
-        V['rate'] = get_market_rate(PV,V)
+        V['rate'] = V['ticker']
     V['buy_rate'] = Money(V['rate'])
 
     if '-p' in args or '--profit' in args:
@@ -101,6 +103,8 @@ def get_variables(PV,V):
 
     V['now_profit']  = Money(0)
     V['orderNumber'] = ''
+
+    V['update_id'] = 0
     
 
     return V
