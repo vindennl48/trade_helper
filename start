@@ -2,18 +2,20 @@
 
 
 ## SETTINGS ##
-CURRENCY='      usdt str'
-AMOUNT='        50'
+CURRENCY='      usdt xrp'
+AMOUNT='         50'
 
-RATE='          .21'
-#FILLAT='        .781'
-#STOPLOSS='      .6794'
-#SL_FAST='        1.001'
+RATE='          2.669'
 
-RISK='          1.9'
-PROFIT='        2.5'
+PERCENT='       yes'
+FILLAT='        2.07'
+STOPLOSS='      1.19'
+SL_FAST='        1.001'
 
-#FAKE='          yes'
+#RISK='          1'
+#PROFIT='        1'
+
+FAKE='          yes'
 #HALFP='         yes'
 
 ################################################################################
@@ -57,6 +59,10 @@ fi
 
 if [[ ! -z $SL_FAST ]]; then
   TRADE="$TRADE"' --sl-fast '"$SL_FAST"' '
+fi
+
+if [[ ! -z $PERCENT ]]; then
+  TRADE="$TRADE"' --percent '"$PERCENT"' '
 fi
 
 echo $TRADE
